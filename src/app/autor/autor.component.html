@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row mt-4">
+    <!-- Team Member 1 -->
+    <div class="col-4">
+      <div class="card border-0 shadow">
+        <img src={{banda.foto}} class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">{{banda.nombre | uppercase}}</h5>
+          <div class="card-text text-black-50">{{banda.pais}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <h2><b>Albums</b></h2>
+
+      <div class="row">
+          <div class="col-4" *ngFor="let item of banda.albums">
+            <app-libro [album]="item"></app-libro>
+          </div>
+      </div>
+      <!-- <ul>
+      <li *ngFor="let item of autor.libros">{{ item.nombre }}</li>
+      </ul>-->      
+    </div>
+  </div>
+</div>

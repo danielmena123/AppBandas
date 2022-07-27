@@ -1,0 +1,137 @@
+<div class="container">
+    <div class="row mt-4">        
+        <div class="col-lg-4">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <h2 class="card-title m-2"><b>{{titulo}}</b></h2>
+
+              <form [formGroup]="bandaForm" (ngSubmit)="enableAlbum()">
+  
+                <mat-form-field class="example-form-field-input" appearance="fill">
+                  <mat-label>Nombre de la Banda</mat-label>
+                  <input matInput formControlName="nombre">
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field-input" appearance="fill">
+                  <mat-label>Pais de Origen</mat-label>
+                  <input matInput formControlName="pais">
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field-input" appearance="fill">
+                  <mat-label>Año de Origen</mat-label>
+                  <input matInput formControlName="año">
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field-input" appearance="fill">
+                  <mat-label>Genero</mat-label>
+                  <input matInput formControlName="genero">
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field-input" appearance="fill">
+                  <mat-label>Foto de la Banda</mat-label>
+                  <input matInput formControlName="foto" placeholder="https://image.com">
+                </mat-form-field>
+                
+                  <!-- <div class="mb-3">
+                      <label class="form-label">Nombre de la Banda</label>
+                      <input type="text" class="form-control" formControlName="nombre">
+                  </div>
+      
+                  <div class="mb-3">
+                      <label class="form-label">Pais de Origen</label>
+                      <input type="text" class="form-control" formControlName="pais">
+                  </div>
+      
+                  <div class="mb-3">
+                      <label class="form-label">Año de Origen</label>
+                      <input type="text" class="form-control" formControlName="año">        
+                  </div>
+      
+                  <div class="mb-3">
+                      <label class="form-label">Foto de la Banda</label>
+                      <input type="text" class="form-control" formControlName="foto">        
+                  </div> -->
+      
+                  <!-- <div *ngIf="!bandaForm.valid" class="form-text text-danger">El formulario contine un error</div> -->
+                  <button type="submit" class="btn btn-success" [disabled]="bandaForm.invalid">Continuar</button>
+                  <!-- <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Enviar</button> -->
+              </form>
+            </div>
+          </div>
+            
+        </div>
+        <div class="col-lg-8">      
+          <div *ngIf="enable" class="card border-0 shadow">
+            <div class="card-body">
+              <h2 class="card-title m-2"><b>Agregar Albums</b></h2>             
+
+              <mat-stepper [linear]="!isLinear" #stepper>
+                <mat-step [stepControl]="nombreAlbumForm">
+                  <form [formGroup]="nombreAlbumForm">
+                    <ng-template matStepLabel>Nombre del Album</ng-template>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Nombre</mat-label>
+                      <input matInput formControlName="nombre" required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-raised-button matStepperNext>Siguiente</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="yearAlbumForm" label="Año de Creación">
+                  <form [formGroup]="yearAlbumForm">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Año</mat-label>
+                      <input matInput formControlName="año" placeholder="1999"
+                             required>
+                    </mat-form-field>
+                    <div class="">
+                      <button mat-raised-button matStepperPrevious>Volver</button> |
+                      <button mat-raised-button matStepperNext>Siguiente</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="fotoAlbumForm" label="Foto del album">
+                    <form [formGroup]="fotoAlbumForm">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Foto</mat-label>
+                        <input matInput formControlName="foto" placeholder="https://image.com"
+                               required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button matStepperPrevious>Volver</button> |
+                        <button mat-raised-button matStepperNext>Siguiente</button>
+                      </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Hecho</ng-template>
+                  <p>Album Listo para añadir.</p>
+                  <div>
+                    <button mat-raised-button matStepperPrevious>Volver</button> |
+                    <button mat-raised-button (click)="addAlbum()">Guardar</button>
+                  </div>
+                </mat-step>
+              </mat-stepper>
+
+              <mat-form-field class="example-chip-list" appearance="fill">
+                <mat-label>Albumns</mat-label>
+                <mat-chip-list #chipList aria-label="Albumns">
+                  <mat-chip *ngFor="let album of albums" (removed)="remove(album)">
+                    {{album}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input placeholder="New Album..."
+                         [matChipInputFor]="chipList"                               
+                         (matChipInputTokenEnd)="add($event)" disabled="">
+                </mat-chip-list>
+              </mat-form-field>
+
+              <button mat-raised-button color="primary" (click)="enviarDatos()" [disabled]="!save">Guardar</button>
+            </div>
+          </div>          
+        </div>        
+    </div>
+</div>
